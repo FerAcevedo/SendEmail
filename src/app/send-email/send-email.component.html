@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2">Hello</div>
+    </div>
+</div>
+    
+    
+    <h2>Email Translate file</h2>
+    <p>Please select the text you want to translate and enter a valid email to send it.</p>
+
+
+    <form action="submit">
+    <div class="form-group">
+        <label for="emailAddress" class="col-sm-2">Email Address</label>
+        <input type="email" placeholder="name@company.com" class="form-control col-sm-2">
+    </div>
+
+    <div class="form-group">
+        <label for="refNumber" class="col-sm-2">Reference #</label>
+        <input type="text" class="form-control col-sm-2">
+    </div>
+
+    <div class="form-group">
+        <label for="sla" class="col-sm-2">SLA</label>
+        <!--input type="text" class="form-control col-sm-2"-->
+        <select name="" id="" class="form-control col-sm-2">
+            <option value="1">Customer</option>
+            <option value="2">Internal</option>
+            <option value="3">Multilevel</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="translationText" class="col-sm-2">Text to be Translated</label>
+        <textarea name="" id="" cols="30" rows="10" class="form-control col-sm-2"></textarea>
+        <!--input type="text" class="form-control col-sm-2"-->
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send info</button>
+</form>
