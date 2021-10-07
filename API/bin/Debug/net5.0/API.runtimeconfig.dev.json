@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\ExcelSoftsources\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\ExcelSoftsources\\.nuget\\packages"
+    ]
+  }
+}
