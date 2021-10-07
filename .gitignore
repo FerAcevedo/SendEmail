@@ -44,3 +44,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+API/bin/Debug/net5.0/API.dll
+API/bin/Debug/net5.0/API.pdb
+API/bin/Debug/net5.0/API.pdb
+API/bin/Debug/net5.0/API.dll
