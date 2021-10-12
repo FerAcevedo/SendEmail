@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,38 +21,24 @@ namespace API.Controllers
         public async Task<ActionResult> SendSingleEmail([FromServices] IFluentEmail singleEmail, EmailDto emailDto)
         {    
             MemoryStream stream = new();
-            StreamWriter sw = new(stream, Encoding.UTF8);
-            await sw.WriteAsync(SerializeToXmlDocument(emailDto));
-            await sw.FlushAsync();
+            XmlSerializer serializer = new(emailDto.GetType());
+            serializer.Serialize(stream, emailDto);
             stream.Seek(0, SeekOrigin.Begin);
 
             var email = singleEmail
                 .To(emailDto.EmailAddress)
                 .Subject($"Text to translate with Ref #: {emailDto.RefNumber}")
-                .Body("This is a single email")
+                .Body($"Hello, {Environment.NewLine} This email contains the file to translate with the reference number: {emailDto.RefNumber}")
                 .Attach(new Attachment
                 {
                     Data = stream,
-                    ContentType = "text/plain",
+                    ContentType = "text/xml",
                     Filename = $"Translate_RefNo{emailDto.RefNumber}.xml"
                 });
 
             await email.SendAsync();
             
             return Ok();
-        }
-
-        public string SerializeToXmlDocument(EmailDto emailDto)
-        {
-            XmlSerializer serializer = new(emailDto.GetType(), "http://schemas.translatedoc.com");
-            using MemoryStream stream = new();
-            serializer.Serialize(stream, emailDto);
-            stream.Position = 0;
-            using XmlReader reader = XmlReader.Create(stream, new XmlReaderSettings{ IgnoreWhitespace = true });
-            XmlDocument xmlDocument = new();
-            xmlDocument.Load(reader);
-
-            return xmlDocument.ToString();
         }
     }
 }

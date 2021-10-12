@@ -1,40 +1,64 @@
-<div class="container">
-    <div class="row">
-        <div class="col-sm-2">Hello</div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Thank you!</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    E-mail has been succesfully sent.
+  </div>
+</ng-template>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <form #translateForm="ngForm" (ngSubmit)="saveAndSendEmail(template)" autocomplete="off" >                
+                <h2 class="text-center text-primary">Email Translate file</h2>                                
+                <p>Please enter the text you want to translate and a valid email address to send it.</p>                
+                <hr>
+                <div class="form-group">
+                    <label for="emailAddress">Email Address</label>
+                    <input name="emailAddress" id="emailAddress"
+                    [(ngModel)]="emailModel.emailAddress" type="email" placeholder="name@company.com" 
+                    class="form-control" ngModel required email
+                    #emailAddress = "ngModel">
+                    <div *ngIf="emailAddress.invalid && (emailAddress.touched || emailAddress.dirty)"
+                    class="alert alert-danger">
+                    <div *ngIf="emailAddress.errors?.required">Email is required</div>
+                    <div *ngIf="emailAddress.errors?.email">Email is not in the correct format</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label for="refNumber">Reference #</label>
+                    <input name="refNumber" id="refNumber"
+                    [(ngModel)]="emailModel.refNumber" type="text" 
+                    class="form-control" required 
+                    #refNumber = ngModel>
+                    <div *ngIf="refNumber.invalid && (refNumber.touched || refNumber.dirty)" class="alert alert-danger">Reference number is required</div>
+                </div>
+                <div class="form-group">
+                    <label for="sla">SLA</label>
+                    <select name="sla" id="sla" required
+                    [(ngModel)]="emailModel.sla" id="" class="form-control">
+                        <option class="form-control" *ngFor="let sla of slaList" [value]="sla.id">{{sla.description}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="translationText">Text to be Translated</label>
+                    <textarea name="translationText" id= "translationText"
+                    [(ngModel)]="emailModel.translationText" id="" cols="30" rows="10" class="form-control" required
+                    #translationText = ngModel></textarea>
+                    <div *ngIf="translationText.invalid && (translationText.touched || translationText.dirty)" class="alert alert-danger">
+                      <div *ngIf="translationText.errors?.required">Text is required</div>
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary"
+                    [disabled] ="!translateForm.form.valid">Send info</button>
+                </div>                
+            </form> 
+        </div>
     </div>
-</div>
-    
-    
-    <h2>Email Translate file</h2>
-    <p>Please select the text you want to translate and enter a valid email to send it.</p>
-
-
-    <form action="submit">
-    <div class="form-group">
-        <label for="emailAddress" class="col-sm-2">Email Address</label>
-        <input type="email" placeholder="name@company.com" class="form-control col-sm-2">
-    </div>
-
-    <div class="form-group">
-        <label for="refNumber" class="col-sm-2">Reference #</label>
-        <input type="text" class="form-control col-sm-2">
-    </div>
-
-    <div class="form-group">
-        <label for="sla" class="col-sm-2">SLA</label>
-        <!--input type="text" class="form-control col-sm-2"-->
-        <select name="" id="" class="form-control col-sm-2">
-            <option value="1">Customer</option>
-            <option value="2">Internal</option>
-            <option value="3">Multilevel</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="translationText" class="col-sm-2">Text to be Translated</label>
-        <textarea name="" id="" cols="30" rows="10" class="form-control col-sm-2"></textarea>
-        <!--input type="text" class="form-control col-sm-2"-->
-    </div>
-
-    <button type="submit" class="btn btn-primary">Send info</button>
-</form>
+</div>  
