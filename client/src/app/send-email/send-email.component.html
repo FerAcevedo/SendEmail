@@ -14,7 +14,7 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-4">
-            <form #translateForm="ngForm" (ngSubmit)="saveAndSendEmail(template)" autocomplete="off" >                
+            <form #translateForm="ngForm" (ngSubmit)="saveAndSendEmail(template); translateForm.reset()" autocomplete="off" >                
                 <h2 class="text-center text-primary">Email Translate file</h2>                                
                 <p>Please enter the text you want to translate and a valid email address to send it.</p>                
                 <hr>
